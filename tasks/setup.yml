@@ -1,0 +1,53 @@
+---
+# tasks file for disconnected-registry
+- name: Enable firewalld
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started      
+
+- name: Add port 5000 to firewalld
+  firewalld:
+    port: 5000/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Enable and start docker-distribution 
+  systemd:
+    name: docker-distribution
+    enabled: yes
+    state: started
+
+- name: Copy docker config
+  copy:
+    src: docker
+    dest: /etc/sysconfig/docker
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: Copy registries.conf 
+  copy:
+    src: registries.conf
+    dest: /etc/containers/registries.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: Restart docker
+  systemd:
+    name: docker
+    state: restarted  
+
+- name: Git clone RedHat COP Disconnect Registry
+  git:
+    repo: 'https://github.com/redhat-cop/openshift-toolkit'
+    dest: /src/openshift-toolkit
+
+- name: Run docker-registry-sync.py script
+  command: "./docker-registry-sync.py --from=registry.access.redhat.com --to={{registryFQDN}}:5000 --file=./docker_tags.json --openshift-version={{ocpVersion}}"
+  args:
+    chdir: /src/openshift-toolkit/disconnected_registry/

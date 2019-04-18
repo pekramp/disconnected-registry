@@ -1,0 +1,12 @@
+---
+# tasks file for disconnected-registry
+- name: Upgrading all Existing System Packages
+  yum:
+    name: "*"
+    state: latest
+    
+- name: Installing Baseline Packages
+  yum:
+    name: "{{ baseline_packages }}"
+    state: latest
+

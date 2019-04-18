@@ -1,0 +1,9 @@
+---
+# tasks file for rhfedora
+- import_tasks: baseline.yml
+  tags:
+    - baseline
+- import_tasks: setup.yml
+  tags:
+    - baseline
+

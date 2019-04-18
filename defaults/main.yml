@@ -1,0 +1,13 @@
+---
+# vars file for disconnected-registry
+#ansible_python_interpreter: /usr/bin/python3
+baseline_packages:
+  - docker
+  - docker-distribution
+  - python-requests
+  - firewalld
+  - git
+
+registryFQDN: registry2.mgt.devsecops.gov
+
+ocpVersion: 3.10
