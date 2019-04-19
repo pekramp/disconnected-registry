@@ -27,7 +27,10 @@ Role Variables
 A listing of all packages to be installed via yum.
 
 #### registryFQDN:
-This is the target FQDN of the server that you wish to make a docker registry server
+This is the target FQDN of the server that you wish to make a docker registry server, this should be the same as your hosts file entry can also be overridden if you don't want to modify the variables file with 
+```
+-e "registryFQDN=<server>.domain"
+```
 
 #### ocpVersion:
 The version of OpenShift which will be installed using the newly created registry server, defaults to 3.10
