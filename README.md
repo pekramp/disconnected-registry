@@ -33,7 +33,10 @@ This is the target FQDN of the server that you wish to make a docker registry se
 ```
 
 #### ocpVersion:
-The version of OpenShift which will be installed using the newly created registry server, defaults to 3.10
+The version of OpenShift which will be installed using the newly created registry server, defaults to 3.10, if you want 3.11 for example it can also be overridden if you don't want to modify the variables file with 
+```
+-e "ocpVersion=3.11"
+```
 
 Dependencies
 ------------
